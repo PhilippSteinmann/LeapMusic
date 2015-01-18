@@ -79,7 +79,7 @@ function testFingers() {
         }
     }
     window.currnumf = numfingers;
-
+    console.log("Inside background page, event triggered");
     switch (numfingers) {
         case 1:
         window.rnumf.innerHTML = "previous";
