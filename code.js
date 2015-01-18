@@ -75,7 +75,6 @@ function testFingers() {
         }
     }
     window.currnumf = numfingers;
-    console.log("Inside background page, event triggered");
     switch (numfingers) {
         case 1:
         previous();
@@ -102,7 +101,9 @@ function previous() {}
 function next() {}
 function volumeDown() {}
 function volumeUp() {}
-function pausePlay() {}
+function pausePlay() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { chrome.tabs.sendMessage(tabs[0].id, {action: "pausePlay"}, function(response) { console.log(response.farewell); }); });
+}
 
 
 // Set up the controller:
