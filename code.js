@@ -19,7 +19,6 @@ function toggle() {
 
 
 window.rnumf = document.getElementById("right");
-document.getElementById("stopstart").addEventListener("click", toggle); //= document.getElementById("stopstart");
 
 window.currnumf = 0;
 window.oldrnumf = 0;
@@ -32,9 +31,6 @@ function numFingers(fingers) {
     var middle = fingers[2].extended;
     var ring = fingers[3].extended;
     var pinky = fingers[4].extended;
-
-    var output = document.getElementById('output'),
-    progress = document.getElementById('progress');
 
 
     if (!ring && !pinky && !thumb) {
@@ -82,27 +78,21 @@ function testFingers() {
     console.log("Inside background page, event triggered");
     switch (numfingers) {
         case 1:
-        window.rnumf.innerHTML = "previous";
         previous();
         break;
         case 2:
-        window.rnumf.innerHTML = "next";
         next();
         break;
         case 3:
-        window.rnumf.innerHTML = "volume down";
         volumeDown();
         break;
         case 4:
-        window.rnumf.innerHTML = "volume up";
         volumeUp();
         break;
         case 0:
-        window.rnumf.innerHTML = "play/pause";
         pausePlay();
         break;
         case 5:
-        window.rnumf.innerHTML = "nothing";
         break;
 
     }
@@ -112,22 +102,12 @@ function previous() {}
 function next() {}
 function volumeDown() {}
 function volumeUp() {}
-function pausePlay() {
-    sendCommandToContentScript("pausePlay")
-}
-
-function sendCommandToContentScript(command) {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: command}, function(response) {});
-    });
-}
+function pausePlay() {}
 
 
 // Set up the controller:
 window.controller = Leap.loop({background: true}, function(frame){
     if (frame.hands.length > 0) {
-        output.innerHTML = frame.hands[0].confidence.toPrecision(2);
-        progress.style.width = frame.hands[0].confidence * 100 + '%';
         window.lHand = frame.hands[0];
 
         if (asdf == 1) {
@@ -149,39 +129,39 @@ window.controller = Leap.loop({background: true}, function(frame){
 
   // Adds the rigged hand and playback plugins
   // to a given controller, providing a cool demo.
-  visualizeHand = function(controller){
-    // The leap-plugin file included above gives us a number of plugins out of the box
-    // To use a plugins, we call `.use` on the controller with options for the plugin.
-    // See js.leapmotion.com/plugins for more info
+//   visualizeHand = function(controller){
+//     // The leap-plugin file included above gives us a number of plugins out of the box
+//     // To use a plugins, we call `.use` on the controller with options for the plugin.
+//     // See js.leapmotion.com/plugins for more info
 
-    controller.use('playback').on('riggedHand.meshAdded', function(handMesh, leapHand){
-      handMesh.material.opacity = 1;
-    });
+//     controller.use('playback').on('riggedHand.meshAdded', function(handMesh, leapHand){
+//       handMesh.material.opacity = 1;
+//     });
 
-  var overlay = controller.plugins.playback.player.overlay;
-  overlay.style.right = 0;
-  overlay.style.left = 'auto';
-  overlay.style.top = 'auto';
-  overlay.style.padding = 0;
-  overlay.style.bottom = '13px';
-  overlay.style.width = '180px';
+//   var overlay = controller.plugins.playback.player.overlay;
+//   overlay.style.right = 0;
+//   overlay.style.left = 'auto';
+//   overlay.style.top = 'auto';
+//   overlay.style.padding = 0;
+//   overlay.style.bottom = '13px';
+//   overlay.style.width = '180px';
 
 
-  controller.use('riggedHand', {
-    scale: 1,
-    boneColors: function (boneMesh, leapHand){
-      if ((true) ) {
-          return { // edit to do color by chords.
-            hue: 0.564,
-            saturation: leapHand.confidence,
-            lightness: 0.5
-        }
-    }
-}
-});
+//   controller.use('riggedHand', {
+//     scale: 1,
+//     boneColors: function (boneMesh, leapHand){
+//       if ((true) ) {
+//           return { // edit to do color by chords.
+//             hue: 0.564,
+//             saturation: leapHand.confidence,
+//             lightness: 0.5
+//         }
+//     }
+// }
+// });
 
-  var camera = controller.plugins.riggedHand.camera;
-  camera.position.set(0,20,-25);
-  camera.lookAt(new THREE.Vector3(0,3,0));
-};
-visualizeHand(Leap.loopController);
+//   var camera = controller.plugins.riggedHand.camera;
+//   camera.position.set(0,20,-25);
+//   camera.lookAt(new THREE.Vector3(0,3,0));
+// };
+// visualizeHand(Leap.loopController);
