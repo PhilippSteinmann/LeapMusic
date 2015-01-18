@@ -97,12 +97,24 @@ function testFingers() {
     }
 }
 
-function previous() {}
-function next() {}
-function volumeDown() {}
-function volumeUp() {}
+function previous() {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { chrome.tabs.sendMessage(tabs[0].id, {action: "previous"}, function(response) { }); });
+
+}
+function next() {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { chrome.tabs.sendMessage(tabs[0].id, {action: "play"}, function(response) { }); });
+
+}
+function volumeDown() {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { chrome.tabs.sendMessage(tabs[0].id, {action: "dislike"}, function(response) { }); });
+
+}
+function volumeUp() {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { chrome.tabs.sendMessage(tabs[0].id, {action: "like"}, function(response) { }); });
+
+}
 function pausePlay() {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { chrome.tabs.sendMessage(tabs[0].id, {action: "pausePlay"}, function(response) { console.log(response.farewell); }); });
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { chrome.tabs.sendMessage(tabs[0].id, {action: "pause"}, function(response) { }); });
 }
 
 
