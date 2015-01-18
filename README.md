@@ -1,2 +1,2 @@
 # LeapMusic
-Spotify controlled by Leap Motion.
+Pandora controlled by Leap Motion.
