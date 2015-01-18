@@ -1,8 +1,12 @@
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   	var command = request.action;
+  	console.log("Command: " + command);
   	if (command == "pausePlay")
   		pausePlay();
   });
 
-alert("Pause/Play");
+
+function pausePlay() {
+	alert("Pause/Play");	
+}
