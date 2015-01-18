@@ -83,24 +83,43 @@ function testFingers() {
     switch (numfingers) {
         case 1:
         window.rnumf.innerHTML = "previous";
+        previous();
         break;
         case 2:
         window.rnumf.innerHTML = "next";
+        next();
         break;
         case 3:
         window.rnumf.innerHTML = "volume down";
+        volumeDown();
         break;
         case 4:
         window.rnumf.innerHTML = "volume up";
+        volumeUp();
         break;
         case 0:
         window.rnumf.innerHTML = "play/pause";
+        pausePlay();
         break;
         case 5:
         window.rnumf.innerHTML = "nothing";
         break;
 
     }
+}
+
+function previous() {}
+function next() {}
+function volumeDown() {}
+function volumeUp() {}
+function pausePlay() {
+    sendCommandToContentScript("pausePlay")
+}
+
+function sendCommandToContentScript(command) {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {action: command}, function(response) {});
+    });
 }
 
 
